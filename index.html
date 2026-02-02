@@ -84,7 +84,7 @@
 </div>
 
 <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdI4aGxMenu6kSeXKRYABJFJ_3dWEeqVYkXY6_cjZ3MrPKpaIdnPScRzYnZpsWQTfS/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdI4aGxMenu6kSeXKRYABJFJ_3dWEeqVYkXY6_cjZ3MrPKpaIdnPScRzYnZpsWQTfS/exec?sheet=PETANG";
     let selectedStatus = "HADIR";
     let userLat = ""; let userLng = ""; let clickCount = 0; let clickTimer;
 
@@ -235,9 +235,9 @@ const senaraiGuru = [
         document.getElementById('inBtn').innerText = "MENYEMAK...";
         document.getElementById('inBtn').disabled = true;
 
-        fetch(WEB_APP_URL, {
+        fetch(`${WEB_APP_URL}&action=toggle&sesi=PETANG`)
             method: "POST",
-            body: JSON.stringify({ nama: nama, status: selectedStatus, lat: userLat, lng: userLng, deviceId: uniqueID })
+            body: JSON.stringify({ nama: nama, status: selectedStatus, lat: userLat, lng: userLng, deviceId: uniqueID, sesi: "PETANG" })
         })
         .then(res => res.text())
         .then(result => {
