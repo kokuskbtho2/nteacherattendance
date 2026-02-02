@@ -84,11 +84,12 @@
 </div>
 
 <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdI4aGxMenu6kSeXKRYABJFJ_3dWEeqVYkXY6_cjZ3MrPKpaIdnPScRzYnZpsWQTfS/exec?sheet=PETANG";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdI4aGxMenu6kSeXKRYABJFJ_3dWEeqVYkXY6_cjZ3MrPKpaIdnPScRzYnZpsWQTfS/exec";
     let selectedStatus = "HADIR";
     let userLat = ""; let userLng = ""; let clickCount = 0; let clickTimer;
 
-const senaraiGuru = [
+    const senaraiGuru = [
+    "RUHAIZA BINTI JUPRI",
     "AQILAH IZZATI BINTI AZAM FAIRUZ",
     "MOHD ZAIRUZI BIN MOHD NOR",
     "NOR IDAWATI BINTI ABU HASAN",
@@ -151,6 +152,7 @@ const senaraiGuru = [
     "ZAITON BINTI MOHAMAD",
     "SITI NAHARIAH BINTI ALI"
 ];
+    window.onload = async function() {
         const overlay = document.getElementById('loading-overlay');
         const formSection = document.getElementById('formSection');
         const contentArea = document.getElementById('content-area');
@@ -235,9 +237,9 @@ const senaraiGuru = [
         document.getElementById('inBtn').innerText = "MENYEMAK...";
         document.getElementById('inBtn').disabled = true;
 
-        fetch(`${WEB_APP_URL}&action=toggle&sesi=PETANG`)
+        fetch(WEB_APP_URL, {
             method: "POST",
-            body: JSON.stringify({ nama: nama, status: selectedStatus, lat: userLat, lng: userLng, deviceId: uniqueID, sesi: "PETANG" })
+            body: JSON.stringify({ nama: nama, status: selectedStatus, lat: userLat, lng: userLng, deviceId: uniqueID })
         })
         .then(res => res.text())
         .then(result => {
