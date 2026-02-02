@@ -13,7 +13,32 @@
             min-height: 100vh; display: flex; align-items: center; justify-content: center; 
             padding: 20px; overflow: hidden; position: relative;
         }
-        /* Lapisan Penutup (Overlay) untuk halang kelipan borang */
+
+        /* KESAN LAMPU MERAH KEDIP (PULSE GLOW) */
+        .logo-container {
+            position: relative;
+            width: 100px;
+            margin: 0 auto 15px auto;
+        }
+        .glow-red {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(239, 68, 68, 0.8);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: pulse-red 2s infinite;
+            z-index: 1;
+        }
+        @keyframes pulse-red {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+        }
+
         #loading-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 100; display: flex; flex-direction: column;
@@ -24,7 +49,7 @@
             padding: 35px 20px; border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); 
             text-align: center; position: relative; z-index: 10; min-height: 400px;
         }
-        .logo-img { width: 85px; margin: 0 auto 15px auto; display: block; cursor: pointer; }
+        .logo-img { width: 85px; position: relative; z-index: 2; margin: 0 auto; display: block; cursor: pointer; }
         .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
         .status-box { border: 3px solid #f3f4f6; padding: 15px 5px; border-radius: 20px; cursor: pointer; transition: all 0.3s; background: white; }
         .status-box.active-hadir { border-color: #10b981; background: #ecfdf5; }
@@ -44,7 +69,8 @@
     </div>
 
     <div id="content-area">
-        <div onclick="handleSecretClick()">
+        <div class="logo-container" onclick="handleSecretClick()">
+            <div class="glow-red"></div>
             <img src="https://imgur.com/DLy3jZn.png" class="logo-img">
         </div>
 
@@ -89,65 +115,68 @@
     let userLat = ""; let userLng = ""; let clickCount = 0; let clickTimer;
 
     const senaraiGuru = [
-    "ANPARSY A/P MUTHUSAMY",
-    "AQILAH IZZATI BINTI AZAM FAIRUZ",
-    "ASMAT BINTI MUSTAPHA",
-    "ATHIRAH SYAHIRA BINTI ISHAK",
-    "AZLINA BINTI ALIAS",
-    "BAIRIRAH BINTI RAMLI",
-    "BANU PRIYA A/P SIVAPRAGASAM",
-    "FARHANA BINTI ABDULLAH",
-    "HABSAH BINTI CHE SOM",
-    "HARYATI BINTI MAULAN",
-    "HEME PRIYA DEVI A/P THIAGARAJAN",
-    "IZZATI IIMAN BINTI ISMAIL",
-    "KHAIRIAH BINTI HUSIN",
-    "MOHAMAD FIRDAUS BIN ZAINOL",
-    "MOHD AIMAN FARID BIN ALIAS",
-    "MOHD NASIR BIN ZAKARIA",
-    "MOHD REDHUAN BIN HJ ARSHAD",
-    "MOHD ZAIRUZI BIN MOHD NOR",
-    "MUHAMMAD FARIS BIN MANSOR",
-    "MUHAMMAD HARIZ BIN HASSAN",
-    "MUHAMMAD IKHWAN BIN WAN AZELEE",
-    "NAGINIDEVI A/P RATHAKRUSHNAN",
-    "NOR AMIN BIN MAT NOR",
-    "NOR IDAWATI BINTI ABU HASAN",
-    "NOR ZAHIRAH BINTI ZAKARIA",
-    "NOR' ATIKAH BINTI ABDUL LATIF",
-    "NOR'AIN BINTI OTHMAN",
-    "NUR FARAH WAHIDA BINTI MAT ANI",
-    "NUR FARHANI BINTI ZAKARIA",
-    "NUR INTAN NAZIFAH BINTI SHAMSURI",
-    "NUR KHADIJAH BINTI ZAHARIMAN",
-    "NUR SYUHADA BINTI ABDUL WAHAB",
-    "NURIZYAN BINTI ZAINUDDIN",
-    "NURUL ATIKAH BINTI BUKHARI",
-    "NURUL FARIHA BINTI MAULAD JAAFAR",
-    "NURUL HALIZA ILYANA BINTI MOHD RAZALI",
-    "NURUL KHAIRUNIE BINTI MAHTAR",
-    "ROSNIZA BINTI MOHD YUSOFF",
-    "SAIZA NINEY NABIHA BINTI SAIFUL BAHARI",
-    "SHARIFAH NUR WAHIDA BINTI SYED YAZIZ",
-    "SITI HAJAR BINTI AB RAHIM",
-    "SITI NAHARIAH BINTI ALI",
-    "SITI NAZIRAH BINTI MAT RAHIM",
-    "SITI NAZRIAH BINTI SANIN",
-    "SITI ZALEHA BINTI YUSOFF",
-    "SOFIAN A/L SANGUAN",
-    "STEPHANIE NYSSA GOMEZ",
-    "SUMAYYAH BINTI JOHAIDI",
-    "SUNITA BINTI RODZI",
-    "SURIANY BINTI IBRAHIM",
-    "SYARFIZA BINTI ABDUL WAHAB SHAARANI",
-    "TUAN NUR AFIFAH BINTI TUAN OMAR",
-    "UMMU HANISAH BINTI ZAINUDDIN",
-    "WAN NUR ATIQAH BINTI WAN ZAKARIA",
-    "ZAITON BINTI MOHAMAD",
-    "ZAKIRI BIN AB HAMID",
-    "ZIZIE ZAWANAH BINTI ZULKIFLI",
-    "ZURAINI BINTI ABDULLAH"
-];
+        "ANISMAZIHA BINTI MOHD ZIN",
+        "ANPARSY A/P MUTHUSAMY",
+        "AQILAH IZZATI BINTI AZAM FAIRUZ",
+        "ASMAT BINTI MUSTAPHA",
+        "ATHIRAH SYAHIRA BINTI ISHAK",
+        "AZLINA BINTI ALIAS",
+        "BAIRIRAH BINTI RAMLI",
+        "BANU PRIYA A/P SIVAPRAGASAM",
+        "FARHANA BINTI ABDULLAH",
+        "HABSAH BINTI CHE SOM",
+        "HARYATI BINTI MAULAN",
+        "HEME PRIYA DEVI A/P THIAGARAJAN",
+        "IZZATI IIMAN BINTI ISMAIL",
+        "KHAIRIAH BINTI HUSIN",
+        "MOHAMAD FIRDAUS BIN ZAINOL",
+        "MOHD AIMAN FARID BIN ALIAS",
+        "MOHD NASIR BIN ZAKARIA",
+        "MOHD REDHUAN BIN HJ ARSHAD",
+        "MOHD ZAIRUZI BIN MOHD NOR",
+        "MUHAMMAD FARIS BIN MANSOR",
+        "MUHAMMAD HARIZ BIN HASSAN",
+        "MUHAMMAD IKHWAN BIN WAN AZELEE",
+        "NAGINIDEVI A/P RATHAKRUSHNAN",
+        "NOR AMIN BIN MAT NOR",
+        "NOR IDAWATI BINTI ABU HASAN",
+        "NOR ZAHIRAH BINTI ZAKARIA",
+        "NOR' ATIKAH BINTI ABDUL LATIF",
+        "NOR'AIN BINTI OTHMAN",
+        "NUR FARAH WAHIDA BINTI MAT ANI",
+        "NUR FARHANI BINTI ZAKARIA",
+        "NUR INTAN NAZIFAH BINTI SHAMSURI",
+        "NUR KHADIJAH BINTI ZAHARIMAN",
+        "NUR SYUHADA BINTI ABDUL WAHAB",
+        "NURIZYAN BINTI ZAINUDDIN",
+        "NURUL ATIKAH BINTI BUKHARI",
+        "NURUL FARIHA BINTI MAULAD JAAFAR",
+        "NURUL HALIZA ILYANA BINTI MOHD RAZALI",
+        "NURUL KHAIRUNIE BINTI MAHTAR",
+        "ROSNIZA BINTI MOHD YUSOFF",
+        "RUHAIZA BINTI JUPRI",
+        "SAIZA NINEY NABIHA BINTI SAIFUL BAHARI",
+        "SHARIFAH NUR WAHIDA BINTI SYED YAZIZ",
+        "SITI HAJAR BINTI AB RAHIM",
+        "SITI NAHARIAH BINTI ALI",
+        "SITI NAZIRAH BINTI MAT RAHIM",
+        "SITI NAZRIAH BINTI SANIN",
+        "SITI ZALEHA BINTI YUSOFF",
+        "SOFIAN A/L SANGUAN",
+        "STEPHANIE NYSSA GOMEZ",
+        "SUMAYYAH BINTI JOHAIDI",
+        "SUNITA BINTI RODZI",
+        "SURIANY BINTI IBRAHIM",
+        "SYARFIZA BINTI ABDUL WAHAB SHAARANI",
+        "TUAN NUR AFIFAH BINTI TUAN OMAR",
+        "UMMU HANISAH BINTI ZAINUDDIN",
+        "WAN NUR ATIQAH BINTI WAN ZAKARIA",
+        "ZAITON BINTI MOHAMAD",
+        "ZAKIRI BIN AB HAMID",
+        "ZIZIE ZAWANAH BINTI ZULKIFLI",
+        "ZURAINI BINTI ABDULLAH"
+    ];
+
     window.onload = async function() {
         const overlay = document.getElementById('loading-overlay');
         const formSection = document.getElementById('formSection');
@@ -155,7 +184,6 @@
         const today = new Date().toLocaleDateString();
 
         try {
-            // 1. Cek Status Kunci Serta-merta
             const statusResp = await fetch(`${WEB_APP_URL}?action=getStatus`);
             const systemStatus = await statusResp.text();
             
@@ -171,7 +199,6 @@
                 return;
             }
 
-            // 2. Cek Jika Peranti Ini Dah Hantar (Local Check)
             if(localStorage.getItem('last_submit_date') === today) {
                 document.getElementById('formSection').classList.add('hidden');
                 document.getElementById('blockSection').classList.remove('hidden');
@@ -179,12 +206,11 @@
                 return;
             }
 
-            // 3. Muat Senarai Nama
             const resp = await fetch(WEB_APP_URL);
             const namesDone = await resp.json();
             const select = document.getElementById('teacherName');
             select.innerHTML = '<option value="">-- SILA PILIH NAMA --</option>';
-            senaraiGuru.sort().forEach(nama => {
+            senaraiGuru.forEach(nama => {
                 let opt = document.createElement('option');
                 opt.value = nama; 
                 opt.innerHTML = namesDone.includes(nama) ? "✅ " + nama : nama;
