@@ -21,7 +21,21 @@
             padding: 35px 20px; border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); 
             text-align: center; position: relative; z-index: 10;
         }
-        .logo-img { width: 85px; margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s; }
+
+        /* KESAN BLINKING MERAH DI BELAKANG LOGO */
+        .logo-container { position: relative; width: fit-content; margin: 0 auto; }
+        .logo-glow {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px; background: rgba(220, 38, 38, 0.6);
+            filter: blur(20px); border-radius: 50%; z-index: -1;
+            animation: blink-red 1.5s infinite;
+        }
+        @keyframes blink-red {
+            0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.8); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        .logo-img { width: 85px; margin: 0 auto 15px auto; display: block; cursor: pointer; transition: transform 0.3s; position: relative; z-index: 2; }
         .logo-img:active { transform: scale(0.9); }
         .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
         .status-box { border: 3px solid #f3f4f6; padding: 15px 5px; border-radius: 20px; cursor: pointer; transition: all 0.3s; background: white; }
@@ -42,6 +56,7 @@
 
 <div class="canva-card">
     <div class="logo-container" onclick="handleSecretClick()">
+        <div class="logo-glow"></div>
         <img src="https://imgur.com/DLy3jZn.png" class="logo-img">
     </div>
 
@@ -84,79 +99,34 @@
 </div>
 
 <script>
-    // MASUKKAN URL WEB APP ANDA
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdI4aGxMenu6kSeXKRYABJFJ_3dWEeqVYkXY6_cjZ3MrPKpaIdnPScRzYnZpsWQTfS/exec";
     
     let selectedStatus = "HADIR";
     let userLat = ""; let userLng = ""; let clickCount = 0; let clickTimer;
 
         const senaraiGuru = [
-        "ANPARSY A/P MUTHUSAMY",
-        "AQILAH IZZATI BINTI AZAM FAIRUZ",
-        "ASMAT BINTI MUSTAPHA",
-        "ATHIRAH SYAHIRA BINTI ISHAK",
-        "AZLINA BINTI ALIAS",
-        "BAIRIRAH BINTI RAMLI",
-        "BANU PRIYA A/P SIVAPRAGASAM",
-        "FARHANA BINTI ABDULLAH",
-        "HABSAH BINTI CHE SOM",
-        "HARYATI BINTI MAULAN",
-        "HEME PRIYA DEVI A/P THIAGARAJAN",
-        "IZZATI IIMAN BINTI ISMAIL",
-        "KHAIRIAH BINTI HUSIN",
-        "MOHAMAD FIRDAUS BIN ZAINOL",
-        "MOHD AIMAN FARID BIN ALIAS",
-        "MOHD NASIR BIN ZAKARIA",
-        "MOHD REDHUAN BIN HJ ARSHAD",
-        "MOHD ZAIRUZI BIN MOHD NOR",
-        "MUHAMMAD FARIS BIN MANSOR",
-        "MUHAMMAD HARIZ BIN HASSAN",
-        "MUHAMMAD IKHWAN BIN WAN AZELEE",
-        "NAGINIDEVI A/P RATHAKRUSHNAN",
-        "NOR AMIN BIN MAT NOR",
-        "NOR IDAWATI BINTI ABU HASAN",
-        "NOR ZAHIRAH BINTI ZAKARIA",
-        "NOR' ATIKAH BINTI ABDUL LATIF",
-        "NOR'AIN BINTI OTHMAN",
-        "NUR FARAH WAHIDA BINTI MAT ANI",
-        "NUR FARHANI BINTI ZAKARIA",
-        "NUR INTAN NAZIFAH BINTI SHAMSURI",
-        "NUR KHADIJAH BINTI ZAHARIMAN",
-        "NUR SYUHADA BINTI ABDUL WAHAB",
-        "NURIZYAN BINTI ZAINUDDIN",
-        "NURUL ATIKAH BINTI BUKHARI",
-        "NURUL FARIHA BINTI MAULAD JAAFAR",
-        "NURUL HALIZA ILYANA BINTI MOHD RAZALI",
-        "NURUL KHAIRUNIE BINTI MAHTAR",
-        "ROSNIZA BINTI MOHD YUSOFF",
-        "RUHAIZA BINTI JUPRI",
-        "SAIZA NINEY NABIHA BINTI SAIFUL BAHARI",
-        "SHARIFAH NUR WAHIDA BINTI SYED YAZIZ",
-        "SITI HAJAR BINTI AB RAHIM",
-        "SITI NAHARIAH BINTI ALI",
-        "SITI NAZIRAH BINTI MAT RAHIM",
-        "SITI NAZRIAH BINTI SANIN",
-        "SITI ZALEHA BINTI YUSOFF",
-        "SOFIAN A/L SANGUAN",
-        "STEPHANIE NYSSA GOMEZ",
-        "SUMAYYAH BINTI JOHAIDI",
-        "SUNITA BINTI RODZI",
-        "SURIANY BINTI IBRAHIM",
-        "SYARFIZA BINTI ABDUL WAHAB SHAARANI",
-        "TUAN NUR AFIFAH BINTI TUAN OMAR",
-        "UMMU HANISAH BINTI ZAINUDDIN",
-        "WAN NUR ATIQAH BINTI WAN ZAKARIA",
-        "ZAITON BINTI MOHAMAD",
-        "ZAKIRI BIN AB HAMID",
-        "ZIZIE ZAWANAH BINTI ZULKIFLI",
-        "ZURAINI BINTI ABDULLAH"
+        "ANPARSY A/P MUTHUSAMY", "AQILAH IZZATI BINTI AZAM FAIRUZ", "ASMAT BINTI MUSTAPHA", "ATHIRAH SYAHIRA BINTI ISHAK",
+        "AZLINA BINTI ALIAS", "BAIRIRAH BINTI RAMLI", "BANU PRIYA A/P SIVAPRAGASAM", "FARHANA BINTI ABDULLAH",
+        "HABSAH BINTI CHE SOM", "HARYATI BINTI MAULAN", "HEME PRIYA DEVI A/P THIAGARAJAN", "IZZATI IIMAN BINTI ISMAIL",
+        "KHAIRIAH BINTI HUSIN", "MOHAMAD FIRDAUS BIN ZAINOL", "MOHD AIMAN FARID BIN ALIAS", "MOHD NASIR BIN ZAKARIA",
+        "MOHD REDHUAN BIN HJ ARSHAD", "MOHD ZAIRUZI BIN OHM NOR", "MUHAMMAD FARIS BIN MANSOR", "MUHAMMAD HARIZ BIN HASSAN",
+        "MUHAMMAD IKHWAN BIN WAN AZELEE", "NAGINIDEVI A/P RATHAKRUSHNAN", "NOR AMIN BIN MAT NOR", "NOR IDAWATI BINTI ABU HASAN",
+        "NOR ZAHIRAH BINTI ZAKARIA", "NOR' ATIKAH BINTI ABDUL LATIF", "NOR'AIN BINTI OTHMAN", "NUR FARAH WAHIDA BINTI MAT ANI",
+        "NUR FARHANI BINTI ZAKARIA", "NUR INTAN NAZIFAH BINTI SHAMSURI", "NUR KHADIJAH BINTI ZAHARIMAN", "NUR SYUHADA BINTI ABDUL WAHAB",
+        "NURIZYAN BINTI ZAINUDDIN", "NURUL ATIKAH BINTI BUKHARI", "NURUL FARIHA BINTI MAULAD JAAFAR", "NURUL HALIZA ILYANA BINTI MOHD RAZALI",
+        "NURUL KHAIRUNIE BINTI MAHTAR", "ROSNIZA BINTI MOHD YUSOFF", "RUHAIZA BINTI JUPRI", "SAIZA NINEY NABIHA BINTI SAIFUL BAHARI",
+        "SHARIFAH NUR WAHIDA BINTI SYED YAZIZ", "SITI HAJAR BINTI AB RAHIM", "SITI NAHARIAH BINTI ALI", "SITI NAZIRAH BINTI MAT RAHIM",
+        "SITI NAZRIAH BINTI SANIN", "SITI ZALEHA BINTI YUSOFF", "SOFIAN A/L SANGUAN", "STEPHANIE NYSSA GOMEZ",
+        "SUMAYYAH BINTI JOHAIDI", "SUNITA BINTI RODZI", "SURIANY BINTI IBRAHIM", "SYARFIZA BINTI ABDUL WAHAB SHAARANI",
+        "TUAN NUR AFIFAH BINTI TUAN OMAR", "UMMU HANISAH BINTI ZAINUDDIN", "WAN NUR ATIQAH BINTI WAN ZAKARIA", "ZAITON BINTI MOHAMAD",
+        "ZAKIRI BIN AB HAMID", "ZIZIE ZAWANAH BINTI ZULKIFLI", "ZURAINI BINTI ABDULLAH"
     ];
+
     window.onload = async function() {
         const select = document.getElementById('teacherName');
         const today = new Date().toLocaleDateString();
 
         try {
-            // 1. SEMAK STATUS KUNCI DARI SERVER
             const statusResp = await fetch(`${WEB_APP_URL}?action=getStatus`);
             const systemStatus = await statusResp.text();
             
@@ -170,14 +140,12 @@
                 return;
             }
 
-            // 2. SEMAK JIKA DAH HANTAR HARI INI
             if(localStorage.getItem('last_submit_date') === today) {
                 document.getElementById('formSection').classList.add('hidden');
                 document.getElementById('blockSection').classList.remove('hidden');
                 return;
             }
 
-            // 3. MUAT SENARAI GURU & TANDA ✅
             const resp = await fetch(WEB_APP_URL);
             const namesDone = await resp.json();
             select.innerHTML = '<option value="">-- SILA PILIH NAMA --</option>';
